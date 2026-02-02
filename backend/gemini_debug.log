@@ -1,0 +1,14 @@
+[Tue Jan 27 23:19:31 2026] Generating content with model gemini-1.5-flash
+[Tue Jan 27 23:19:31 2026] ERROR: Gemini API Error: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+[Tue Jan 27 23:26:04 2026] Attempting with model gemini-1.5-flash
+[Tue Jan 27 23:26:04 2026] ERROR: Model gemini-1.5-flash failed: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+[Tue Jan 27 23:26:04 2026] Attempting with model gemini-1.5-flash-001
+[Tue Jan 27 23:26:05 2026] ERROR: Model gemini-1.5-flash-001 failed: 404 models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+[Tue Jan 27 23:26:05 2026] Attempting with model gemini-1.5-pro
+[Tue Jan 27 23:26:05 2026] ERROR: Model gemini-1.5-pro failed: 404 models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+[Tue Jan 27 23:26:05 2026] Attempting with model gemini-1.5-pro-001
+[Tue Jan 27 23:26:05 2026] ERROR: Model gemini-1.5-pro-001 failed: 404 models/gemini-1.5-pro-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+[Tue Jan 27 23:26:05 2026] Attempting with model gemini-pro
+[Tue Jan 27 23:26:05 2026] ERROR: Model gemini-pro failed: 404 models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+[Tue Jan 27 23:26:05 2026] Attempting with model gemini-1.0-pro
+[Tue Jan 27 23:26:05 2026] ERROR: Model gemini-1.0-pro failed: 404 models/gemini-1.0-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
