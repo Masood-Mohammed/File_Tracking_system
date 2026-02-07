@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, CheckCircle, XCircle } from 'lucide-react';
 
 const CompleteModal = ({ isOpen, onClose, onSubmit }) => {
-    const [outcome, setOutcome] = useState('Completed Successfully');
+    const [outcome, setOutcome] = useState('Approved');
     const [remarks, setRemarks] = useState('');
 
     if (!isOpen) return null;
@@ -10,7 +10,7 @@ const CompleteModal = ({ isOpen, onClose, onSubmit }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit(outcome, remarks);
-        setOutcome('Completed Successfully'); // Reset
+        setOutcome('Approved'); // Reset
         setRemarks('');
     };
 
@@ -32,14 +32,14 @@ const CompleteModal = ({ isOpen, onClose, onSubmit }) => {
                                 type="button"
                                 className="btn"
                                 style={{
-                                    background: outcome === 'Completed Successfully' ? '#dcfce7' : '#f1f5f9',
-                                    color: outcome === 'Completed Successfully' ? '#166534' : '#64748b',
-                                    border: outcome === 'Completed Successfully' ? '1px solid #166534' : '1px solid transparent',
+                                    background: outcome === 'Approved' ? '#dcfce7' : '#f1f5f9',
+                                    color: outcome === 'Approved' ? '#166534' : '#64748b',
+                                    border: outcome === 'Approved' ? '1px solid #166534' : '1px solid transparent',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem'
                                 }}
-                                onClick={() => setOutcome('Completed Successfully')}
+                                onClick={() => setOutcome('Approved')}
                             >
-                                <CheckCircle size={16} /> Successful
+                                <CheckCircle size={16} /> Approved
                             </button>
                             <button
                                 type="button"
@@ -58,13 +58,14 @@ const CompleteModal = ({ isOpen, onClose, onSubmit }) => {
                     </div>
 
                     <div className="input-group">
-                        <label htmlFor="remarks">Remarks (Optional)</label>
+                        <label htmlFor="remarks">Remarks <span style={{ color: 'red' }}>*</span></label>
                         <textarea
                             id="remarks"
                             rows="3"
                             value={remarks}
                             onChange={(e) => setRemarks(e.target.value)}
-                            placeholder="Add any finishing comments..."
+                            placeholder="Add any finishing comments (Mandatory)..."
+                            required
                         />
                     </div>
 
@@ -72,7 +73,16 @@ const CompleteModal = ({ isOpen, onClose, onSubmit }) => {
                         <button type="button" className="btn" style={{ background: '#f1f5f9', flex: 1 }} onClick={onClose}>
                             Cancel
                         </button>
-                        <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>
+                        <button
+                            type="submit"
+                            className="btn btn-primary"
+                            style={{
+                                flex: 1,
+                                opacity: remarks.trim() ? 1 : 0.6,
+                                cursor: remarks.trim() ? 'pointer' : 'not-allowed'
+                            }}
+                            disabled={!remarks.trim()}
+                        >
                             Mark as Complete
                         </button>
                     </div>

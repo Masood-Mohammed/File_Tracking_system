@@ -5,6 +5,7 @@ import ActionModal from '../components/ActionModal';
 import HistoryModal from '../components/HistoryModal';
 import UploadModal from '../components/UploadModal';
 import CompleteModal from '../components/CompleteModal';
+import DeleteModal from '../components/DeleteModal';
 import { RefreshCw, Plus } from 'lucide-react';
 
 export default function Dashboard({ user, onLogout }) {
@@ -18,6 +19,7 @@ export default function Dashboard({ user, onLogout }) {
     const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
     const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const [fileHistory, setFileHistory] = useState([]);
 
@@ -79,14 +81,18 @@ export default function Dashboard({ user, onLogout }) {
         fetchData();
     };
 
-    const handleDelete = async (file) => {
-        if (confirm('Are you sure you want to delete this file? This cannot be undone.')) {
-            try {
-                await deleteFile(file.id);
-                fetchData();
-            } catch (err) {
-                alert('Failed to delete file');
-            }
+    const handleDelete = (file) => {
+        setSelectedFile(file);
+        setIsDeleteModalOpen(true);
+    };
+
+    const submitDelete = async (reason) => {
+        try {
+            await deleteFile(selectedFile.id, reason);
+            setIsDeleteModalOpen(false);
+            fetchData();
+        } catch (err) {
+            alert(err.message || 'Failed to delete file');
         }
     };
 
@@ -175,6 +181,12 @@ export default function Dashboard({ user, onLogout }) {
                 isOpen={isCompleteModalOpen}
                 onClose={() => setIsCompleteModalOpen(false)}
                 onSubmit={submitComplete}
+            />
+
+            <DeleteModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                onSubmit={submitDelete}
             />
         </div>
     );

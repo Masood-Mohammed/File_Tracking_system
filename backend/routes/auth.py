@@ -15,12 +15,24 @@ def login():
 
     user = User.query.filter_by(username=username).first()
     
-    if user and user.password_hash == hash_password(password):
-        return jsonify({
-            "message": "Login successful",
-            "user": user.to_dict(),
-            "token": "dummy-token-for-demo" # simplistic token for demo
-        }), 200
+    print(f"Login Attempt: {username}")
+    if user:
+        print(f"User Found: {user.username}, Role: {user.role}")
+        expected_hash = user.password_hash
+        provided_hash = hash_password(password)
+        print(f"Stored Hash:   {expected_hash}")
+        print(f"Provided Hash: {provided_hash}")
+        
+        if expected_hash == provided_hash:
+            return jsonify({
+                "message": "Login successful",
+                "user": user.to_dict(),
+                "token": "dummy-token-for-demo"
+            }), 200
+        else:
+            print("Mismatch!")
+    else:
+        print("User NOT Found")
     
     return jsonify({"error": "Invalid credentials"}), 401
 

@@ -109,3 +109,23 @@ application = create_app()
 3.  **Environment Variables**: Add them in the Render dashboard.
 
 *Note: Render Free Tier deletes SQLite data on restart. PythonAnywhere keeps it.*
+
+## 🔄 Updating your Live App
+
+### Frontend (Vercel)
+**Automatic**: Just push your changes to GitHub. Vercel will detect the push and redeploy automatically.
+```bash
+git add .
+git commit -m "Update frontend"
+git push
+```
+
+### Backend (PythonAnywhere)
+**Manual**: You must log in to the console to pull changes.
+1.  Go to **Consoles** -> **Bash**.
+2.  Run:
+    ```bash
+    cd File_Tracking_system/backend
+    git pull
+    ```
+3.  Go to the **Web** tab and click **Reload**.

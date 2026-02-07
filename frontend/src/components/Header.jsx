@@ -46,6 +46,32 @@ const Header = ({ user, onLogout }) => {
                     >
                         Registers
                     </NavLink>
+                    <NavLink
+                        to="/analytics"
+                        style={({ isActive }) => ({
+                            textDecoration: 'none',
+                            color: isActive ? 'var(--primary)' : 'var(--text-muted)',
+                            fontWeight: isActive ? '600' : '500',
+                            padding: '0.5rem 0.75rem',
+                            borderRadius: '6px',
+                            background: isActive ? '#eff6ff' : 'transparent'
+                        })}
+                    >
+                        Analytics
+                    </NavLink>
+                    <NavLink
+                        to="/deleted-grievances"
+                        style={({ isActive }) => ({
+                            textDecoration: 'none',
+                            color: isActive ? '#2563eb' : 'var(--text-muted)',
+                            fontWeight: isActive ? '600' : '500',
+                            padding: '0.5rem 0.75rem',
+                            borderRadius: '6px',
+                            background: isActive ? '#eff6ff' : 'transparent'
+                        })}
+                    >
+                        Deleted
+                    </NavLink>
                 </nav>
             </div>
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Analytics from './pages/Analytics';
+import DeletedGrievances from './pages/DeletedGrievances';
 
 import Layout from './Layout';
 import Registers from './pages/Registers';
@@ -36,6 +38,26 @@ function App() {
             user ? (
               <Layout user={user} onLogout={handleLogout}>
                 <Registers user={user} />
+              </Layout>
+            ) : <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="/analytics"
+          element={
+            user ? (
+              <Layout user={user} onLogout={handleLogout}>
+                <Analytics />
+              </Layout>
+            ) : <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="/deleted-grievances"
+          element={
+            user ? (
+              <Layout user={user} onLogout={handleLogout}>
+                <DeletedGrievances />
               </Layout>
             ) : <Navigate to="/login" />
           }

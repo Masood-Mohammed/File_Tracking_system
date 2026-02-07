@@ -55,14 +55,36 @@ export const uploadFile = async (formData) => {
     return res.json();
 };
 
-export const deleteFile = async (fileId) => {
+export const deleteFile = async (fileId, reason) => {
     const res = await fetch(`${API_URL}/files/${fileId}`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ reason })
     });
-    if (!res.ok) throw new Error('Failed to delete file');
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Failed to delete file');
+    }
+    return res.json();
+};
+
+export const getAnalytics = async (category) => {
+    let url = `${API_URL}/files/analytics`;
+    if (category && category !== 'All') {
+        url += `?category=${category}`;
+    }
+    const res = await fetch(url);
     return res.json();
 };
 
 export const setupUsers = async () => {
     await fetch(`${API_URL}/auth/setup`, { method: 'POST' });
+};
+
+export const getDeletedFiles = async () => {
+    const res = await fetch(`${API_URL}/files/deleted`);
+    return res.json();
 };
