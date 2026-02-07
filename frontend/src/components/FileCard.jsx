@@ -1,5 +1,6 @@
 import React from 'react';
 import { Clock, Archive, User, FileText, ExternalLink, History } from 'lucide-react';
+import { BASE_URL } from '../api';
 
 export default function FileCard({ file, userRole, onForward, onComplete, onViewHistory, onDelete }) {
     const isCompleted = file.status === 'Completed';
@@ -36,7 +37,7 @@ export default function FileCard({ file, userRole, onForward, onComplete, onView
                 {file.file_path && (
                     <div style={{ marginTop: '0.5rem' }}>
                         <a
-                            href={`http://localhost:5000${file.file_path}`}
+                            href={`${BASE_URL}${file.file_path}`}
                             target="_blank"
                             rel="noreferrer"
                             className="btn"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getFiles, forwardFile, completeFile, getHistory, uploadFile, deleteFile } from '../api';
+import { getFiles, forwardFile, completeFile, getHistory, uploadFile, deleteFile, getUsers } from '../api';
 import FileCard from '../components/FileCard';
 import ActionModal from '../components/ActionModal';
 import HistoryModal from '../components/HistoryModal';
@@ -29,8 +29,7 @@ export default function Dashboard({ user, onLogout }) {
     };
 
     const fetchUsers = async () => {
-        const res = await fetch('http://localhost:5000/api/auth/users');
-        const data = await res.json();
+        const data = await getUsers();
         setUsers(data.filter(u => u.id !== user.id));
     }
 

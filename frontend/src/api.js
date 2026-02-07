@@ -1,4 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+export const BASE_URL = API_URL.replace('/api', '');
 
 export const login = async (username, password) => {
     const res = await fetch(`${API_URL}/auth/login`, {
@@ -92,5 +93,10 @@ export const setupUsers = async () => {
 
 export const getDeletedFiles = async () => {
     const res = await fetch(`${API_URL}/files/deleted`);
+    return res.json();
+};
+
+export const getUsers = async () => {
+    const res = await fetch(`${API_URL}/auth/users`);
     return res.json();
 };
