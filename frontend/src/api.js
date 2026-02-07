@@ -65,8 +65,14 @@ export const deleteFile = async (fileId, reason) => {
     });
 
     if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Failed to delete file');
+        const text = await res.text();
+        try {
+            const err = JSON.parse(text);
+            throw new Error(err.error || 'Failed to delete file');
+        } catch (e) {
+            console.error("Non-JSON error response:", text);
+            throw new Error(`Server error (${res.status}): Please check console for details.`);
+        }
     }
     return res.json();
 };
