@@ -275,26 +275,32 @@ def delete_file(file_id):
 
     file = File.query.get_or_404(file_id)
     
-    # Create DeletedFile record
-    deleted_file = DeletedFile(
-        original_file_id=file.id,
-        source=file.source,
-        grievance_summary=file.grievance_summary,
-        category=file.category,
-        priority=file.priority,
-        department=file.department,
-        file_path=file.file_path,
-        created_at=file.created_at,
-        deletion_reason=reason
-    )
-    db.session.add(deleted_file)
+    try:
+        # Create DeletedFile record
+        # Check if DeletedFile table exists (it should if migrations ran)
+        deleted_file = DeletedFile(
+            original_file_id=file.id,
+            source=file.source,
+            grievance_summary=file.grievance_summary,
+            category=file.category,
+            priority=file.priority,
+            department=file.department,
+            file_path=file.file_path,
+            created_at=file.created_at,
+            deletion_reason=reason
+        )
+        db.session.add(deleted_file)
 
-    # Delete associated movements first to avoid foreign key constraints if no cascade
-    FileMovement.query.filter_by(file_id=file_id).delete()
-    
-    db.session.delete(file)
-    db.session.commit()
-    return jsonify({"message": "File deleted successfully"}), 200
+        # Delete associated movements first to avoid foreign key constraints if no cascade
+        FileMovement.query.filter_by(file_id=file_id).delete()
+        
+        db.session.delete(file)
+        db.session.commit()
+        return jsonify({"message": "File deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.error(f"Error deleting file {file_id}: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 @files_bp.route('/deleted', methods=['GET'])
 def get_deleted_files():
