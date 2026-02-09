@@ -166,6 +166,7 @@ export default function Registers({ user }) {
                                     {activeTab === 'inward' && <th style={{ padding: '0.75rem' }}>Current Status</th>}
                                     {activeTab === 'outward' && <th style={{ padding: '0.75rem' }}>Completed By</th>}
                                     {activeTab === 'outward' && <th style={{ padding: '0.75rem' }}>Outcome</th>}
+                                    {activeTab === 'outward' && <th style={{ padding: '0.75rem' }}>Remarks</th>}
                                 </>
                             )}
                         </tr>
@@ -219,9 +220,19 @@ export default function Registers({ user }) {
                                                 <>
                                                     <td style={{ padding: '0.75rem' }}>{file.current_officer}</td>
                                                     <td style={{ padding: '0.75rem' }}>
-                                                        <span style={{ color: '#166534', background: '#dcfce7', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem' }}>
-                                                            {file.status}
+                                                        <span style={{
+                                                            color: file.outcome === 'Rejected' ? '#dc2626' : '#166534',
+                                                            background: file.outcome === 'Rejected' ? '#fef2f2' : '#dcfce7',
+                                                            padding: '2px 8px',
+                                                            borderRadius: '4px',
+                                                            fontSize: '0.8rem',
+                                                            fontWeight: 500
+                                                        }}>
+                                                            {file.outcome || file.status}
                                                         </span>
+                                                    </td>
+                                                    <td style={{ padding: '0.75rem', fontSize: '0.9rem', color: '#475569' }}>
+                                                        {file.closing_remarks || '-'}
                                                     </td>
                                                 </>
                                             )}

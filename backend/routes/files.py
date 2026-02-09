@@ -245,6 +245,8 @@ def complete_file(file_id):
 
     file = File.query.get_or_404(file_id)
     file.status = 'Completed'
+    file.outcome = outcome
+    file.closing_remarks = remarks
     # Keep current owner or move to archive? 
     # Usually "Completed" means it's done. Owner stays same for record purposes or moves to "Record Room".
     # For now, owner stays same.

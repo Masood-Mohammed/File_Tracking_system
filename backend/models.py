@@ -24,6 +24,8 @@ class File(db.Model):
     priority = db.Column(db.String(20)) # 'Low', 'Medium', 'High'
     department = db.Column(db.String(50))
     status = db.Column(db.String(20), default='Pending') # 'Pending', 'In Progress', 'Completed'
+    outcome = db.Column(db.String(50), nullable=True) # 'Approved', 'Rejected'
+    closing_remarks = db.Column(db.Text, nullable=True)
     current_officer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) # Nullable if unassigned? Should be assigned to Secretary by default.
     file_path = db.Column(db.String(255), nullable=True) # Path to uploaded file
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -39,6 +41,8 @@ class File(db.Model):
             "priority": self.priority,
             "department": self.department,
             "status": self.status,
+            "outcome": self.outcome,
+            "closing_remarks": self.closing_remarks,
             "current_officer": self.current_officer.username if self.current_officer else None,
             "file_path": self.file_path,
             "created_at": self.created_at.isoformat()
