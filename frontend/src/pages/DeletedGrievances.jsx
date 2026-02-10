@@ -36,9 +36,9 @@ export default function DeletedGrievances() {
 
     return (
         <div className="card" style={{ maxWidth: '100%', padding: '1.5rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <div className="page-header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <h2 style={{ margin: 0, color: '#1e40af' }}>Deleted Grievances</h2>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'white', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '0.5rem 1rem', width: '300px' }}>
+                <div className="search-bar-container" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'white', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '0.5rem 1rem' }}>
                     <Search size={18} color="#64748b" />
                     <input
                         type="text"

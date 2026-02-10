@@ -63,11 +63,11 @@ export default function Registers({ user }) {
 
     return (
         <div className="card" style={{ maxWidth: '100%', padding: '1.5rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <div className="header-wrapper" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h2 style={{ margin: 0 }}>Registers</h2>
 
                 {/* Tabs */}
-                <div style={{ display: 'flex', background: '#f1f5f9', padding: '0.25rem', borderRadius: '8px' }}>
+                <div className="tabs-container" style={{ display: 'flex', background: '#f1f5f9', padding: '0.25rem', borderRadius: '8px' }}>
                     <button
                         className="btn"
                         style={{
@@ -105,7 +105,7 @@ export default function Registers({ user }) {
             </div>
 
             {/* Filters */}
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+            <div className="filters-container" style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'white', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '0.5rem 1rem', flex: 1 }}>
                     <Search size={18} color="#64748b" />
                     <input
@@ -118,7 +118,7 @@ export default function Registers({ user }) {
                 </div>
 
                 {activeTab !== 'deleted' && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div className="filters-dates" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'white', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '0.5rem' }}>
                             <Calendar size={16} color="#64748b" />
                             <span style={{ fontSize: '0.8rem', fontWeight: 500, color: '#64748b' }}>From:</span>

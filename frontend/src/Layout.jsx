@@ -2,11 +2,14 @@ import React from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-const Layout = ({ children, user, onLogout }) => {
+const Layout = ({ children, user, onLogout, fullWidth = false }) => {
     return (
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Header user={user} onLogout={onLogout} />
-            <main style={{ flex: 1, padding: '2rem', maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+            <main style={fullWidth ?
+                { flex: 1, width: '100%', boxSizing: 'border-box', padding: 0 } :
+                { flex: 1, padding: '2rem', maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }
+            }>
                 {children}
             </main>
             <Footer />

@@ -2,8 +2,17 @@ import React from 'react';
 import { Clock, Archive, User, FileText, ExternalLink, History } from 'lucide-react';
 import { BASE_URL } from '../api';
 
-export default function FileCard({ file, userRole, onForward, onComplete, onViewHistory, onDelete }) {
+export default function FileCard({ file, userRole, currentUserId, onForward, onComplete, onViewHistory, onDelete, onUpdate }) {
     const isCompleted = file.status === 'Completed';
+
+    const handleForwardClick = () => {
+        // Strict Int Comparison to avoid string/number mismatch
+        if (file.current_officer_id && parseInt(file.current_officer_id) !== parseInt(currentUserId)) {
+            alert("This action cannot be done: You are not the current holder of this file.");
+            return;
+        }
+        onForward(file);
+    };
 
     return (
         <div className="file-card">
@@ -63,9 +72,13 @@ export default function FileCard({ file, userRole, onForward, onComplete, onView
             </div>
 
             {!isCompleted && (
-                <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.5rem' }}>
-                    <button className="btn" style={{ background: '#f1f5f9', flex: 1 }} onClick={() => onForward(file)}>
+                <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    <button className="btn" style={{ background: '#f1f5f9', flex: 1 }} onClick={handleForwardClick}>
                         Forward
+                    </button>
+
+                    <button className="btn" style={{ background: '#e0f2fe', color: '#0369a1', flex: 1 }} onClick={() => onUpdate(file)}>
+                        Update
                     </button>
 
                     <button className="btn" style={{ background: '#dcfce7', color: '#166534', flex: 1 }} onClick={() => onComplete(file)}>

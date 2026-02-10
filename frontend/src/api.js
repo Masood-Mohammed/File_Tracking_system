@@ -43,6 +43,15 @@ export const completeFile = async (fileId, userId, outcome, remarks) => {
     return res.json();
 };
 
+export const updateFile = async (fileId, description) => {
+    const res = await fetch(`${API_URL}/files/${fileId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ grievance_summary: description })
+    });
+    return res.json();
+};
+
 export const getHistory = async (fileId) => {
     const res = await fetch(`${API_URL}/files/${fileId}/history`);
     return res.json();

@@ -43,16 +43,43 @@ def analyze_grievance(content, file_path=None):
         # 3. Handle File Upload
         if file_path:
             try:
-                print(f"DEBUG: Uploading file: {file_path}")
-                uploaded_file = genai.upload_file(file_path)
-                print(f"DEBUG: File uploaded successfully: {uploaded_file.uri}")
-                input_data.append(uploaded_file)
+                print(f"DEBUG: Processing file: {file_path}")
+                ext = os.path.splitext(file_path)[1].lower()
+                
+                if ext == '.docx':
+                    import docx
+                    try:
+                        doc = docx.Document(file_path)
+                        full_text = []
+                        for para in doc.paragraphs:
+                            full_text.append(para.text)
+                        extracted_text = '\n'.join(full_text).strip()
+                        
+                        if not extracted_text:
+                            print("DEBUG: Empty .docx found (likely scanned).")
+                            return get_mock_response(content, "Error: Scanned .docx file (no text). Please use PDF or Image.")
+                            
+                        print(f"DEBUG: Extracted text from .docx ({len(extracted_text)} chars)")
+                        input_data.append(f"\n[Attached Document Content]:\n{extracted_text}")
+                    except Exception as e:
+                        print(f"DEBUG: Error reading .docx: {e}")
+                        return get_mock_response(content, f"Error reading .docx: {str(e)}")
+
+                elif ext == '.doc':
+                    print("DEBUG: .doc format detected (unsupported).")
+                    return get_mock_response(content, "Error: .doc format not supported. Please use .docx, PDF, or Image.")
+
+                else:
+                    # Default: Image/PDF upload to Gemini
+                    print(f"DEBUG: Uploading file to Gemini: {file_path}")
+                    uploaded_file = genai.upload_file(file_path)
+                    print(f"DEBUG: File uploaded successfully: {uploaded_file.uri}")
+                    input_data.append(uploaded_file)
+                    
             except Exception as e:
-                print(f"DEBUG: File upload failed: {e}")
+                print(f"DEBUG: File processing/upload failed: {e}")
                 input_data.append(f"\n[Error: Could not process attached file: {str(e)}]")
-                raise e # Re-raise to trigger fallback logic if file is critical, or just continue? 
-                        # Let's catch outer loop. Actually, better to log and try text-only if file fails?
-                        # No, if file upload fails (network/key), likely generation will too.
+                # We do NOT raise here, we let the text content be analyzed alone so the process doesn't crash completely.
 
         # 4. Generate Content
         print("DEBUG: Generating content with gemini-1.5-flash...")

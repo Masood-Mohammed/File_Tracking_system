@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getFiles, forwardFile, completeFile, getHistory, uploadFile, deleteFile, getUsers } from '../api';
+import { getFiles, forwardFile, completeFile, getHistory, uploadFile, deleteFile, getUsers, updateFile } from '../api';
 import FileCard from '../components/FileCard';
 import ActionModal from '../components/ActionModal';
 import HistoryModal from '../components/HistoryModal';
 import UploadModal from '../components/UploadModal';
 import CompleteModal from '../components/CompleteModal';
 import DeleteModal from '../components/DeleteModal';
+import UpdateModal from '../components/UpdateModal';
 import { RefreshCw, Plus } from 'lucide-react';
 
 export default function Dashboard({ user, onLogout }) {
@@ -22,6 +23,8 @@ export default function Dashboard({ user, onLogout }) {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const [fileHistory, setFileHistory] = useState([]);
+
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
     const fetchData = async () => {
         const data = await getFiles(user.role, user.id, statusFilter);
@@ -44,6 +47,22 @@ export default function Dashboard({ user, onLogout }) {
     const handleForward = (file) => {
         setSelectedFile(file);
         setIsForwardModalOpen(true);
+    };
+
+    const handleUpdate = (file) => {
+        setSelectedFile(file);
+        setIsUpdateModalOpen(true);
+    };
+
+    const submitUpdate = async (description) => {
+        try {
+            await updateFile(selectedFile.id, description);
+            setIsUpdateModalOpen(false);
+            fetchData();
+        } catch (error) {
+            console.error(error);
+            alert("Failed to update file. Please try again.");
+        }
     };
 
     const handleHistory = async (file) => {
@@ -97,11 +116,11 @@ export default function Dashboard({ user, onLogout }) {
 
     return (
         <div className="dashboard-container">
-            <header className="header" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <header className="header dashboard-header" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 600, margin: 0 }}>Dashboard</h2>
                 </div>
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <div className="dashboard-actions" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <button className="btn btn-primary" onClick={() => setIsUploadModalOpen(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <Plus size={18} /> Upload File
                     </button>
@@ -111,7 +130,7 @@ export default function Dashboard({ user, onLogout }) {
                 </div>
             </header>
 
-            <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '1rem' }}>
+            <div className="tabs-container" style={{ marginBottom: '1.5rem', display: 'flex', gap: '1rem' }}>
                 <button
                     className={`btn ${statusFilter === '' ? 'btn-primary' : ''}`}
                     style={statusFilter === '' ? {} : { background: 'white', border: '1px solid #e2e8f0' }}
@@ -146,7 +165,9 @@ export default function Dashboard({ user, onLogout }) {
                             key={file.id}
                             file={file}
                             userRole={user.role}
+                            currentUserId={user.id}
                             onForward={handleForward}
+                            onUpdate={handleUpdate}
                             onComplete={handleComplete}
                             onViewHistory={handleHistory}
                             onDelete={handleDelete}
@@ -160,6 +181,13 @@ export default function Dashboard({ user, onLogout }) {
                 onClose={() => setIsForwardModalOpen(false)}
                 onSubmit={submitForward}
                 users={users}
+                file={selectedFile}
+            />
+
+            <UpdateModal
+                isOpen={isUpdateModalOpen}
+                onClose={() => setIsUpdateModalOpen(false)}
+                onSubmit={submitUpdate}
                 file={selectedFile}
             />
 

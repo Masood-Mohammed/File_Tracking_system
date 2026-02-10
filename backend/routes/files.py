@@ -304,6 +304,22 @@ def delete_file(file_id):
         current_app.logger.error(f"Error deleting file {file_id}: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
+@files_bp.route('/<int:file_id>', methods=['PUT'])
+def update_file(file_id):
+    data = request.json
+    grievance_summary = data.get('grievance_summary')
+    
+    file = File.query.get_or_404(file_id)
+    
+    # Ideally check permissions here (e.g., only current owner can update)
+    # For now, we allow update if the user has access to the dashboard/ID
+    
+    if grievance_summary:
+        file.grievance_summary = grievance_summary
+    
+    db.session.commit()
+    return jsonify(file.to_dict())
+
 @files_bp.route('/deleted', methods=['GET'])
 def get_deleted_files():
     # Fetch all deleted files

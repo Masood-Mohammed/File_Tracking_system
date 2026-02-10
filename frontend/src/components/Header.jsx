@@ -1,85 +1,140 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { LogOut, User } from 'lucide-react';
+import React, { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import { LogOut, User, Menu, X } from 'lucide-react';
+
+import logo from '../assets/logo.png';
 
 const Header = ({ user, onLogout }) => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false);
+    };
+
     return (
         <header style={{
-            background: 'white',
-            borderBottom: '1px solid #e2e8f0',
-            padding: '1rem 2rem',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            background: 'var(--primary)',
+            borderBottom: '1px solid var(--border-color)',
+            padding: '1rem 0',
             position: 'sticky',
             top: 0,
-            zIndex: 100
+            zIndex: 100,
+            boxShadow: 'var(--shadow-sm)'
         }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-                <h1 style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--primary)', margin: 0 }}>
-                    FileTrack
-                </h1>
-                <nav style={{ display: 'flex', gap: '1rem' }}>
-                    <NavLink
-                        to="/dashboard"
-                        style={({ isActive }) => ({
-                            textDecoration: 'none',
-                            color: isActive ? 'var(--primary)' : 'var(--text-muted)',
-                            fontWeight: isActive ? '600' : '500',
-                            padding: '0.5rem 0.75rem',
-                            borderRadius: '6px',
-                            background: isActive ? '#eff6ff' : 'transparent'
-                        })}
-                    >
-                        Dashboard
-                    </NavLink>
-                    <NavLink
-                        to="/registers"
-                        style={({ isActive }) => ({
-                            textDecoration: 'none',
-                            color: isActive ? 'var(--primary)' : 'var(--text-muted)',
-                            fontWeight: isActive ? '600' : '500',
-                            padding: '0.5rem 0.75rem',
-                            borderRadius: '6px',
-                            background: isActive ? '#eff6ff' : 'transparent'
-                        })}
-                    >
-                        Registers
-                    </NavLink>
-                    <NavLink
-                        to="/analytics"
-                        style={({ isActive }) => ({
-                            textDecoration: 'none',
-                            color: isActive ? 'var(--primary)' : 'var(--text-muted)',
-                            fontWeight: isActive ? '600' : '500',
-                            padding: '0.5rem 0.75rem',
-                            borderRadius: '6px',
-                            background: isActive ? '#eff6ff' : 'transparent'
-                        })}
-                    >
-                        Analytics
-                    </NavLink>
+            <div className="container header-wrapper">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '2.5rem' }}>
+                    <Link to="/home" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
+                        <img src={logo} alt="JNTUGV Logo" style={{ height: '50px', objectFit: 'contain' }} />
+                        <h1 style={{ fontSize: '1.25rem', fontWeight: '800', color: 'white', margin: 0, letterSpacing: '-0.025em' }}>
+                            FileTrack<span style={{ color: 'white' }}>.gov</span>
+                        </h1>
+                    </Link>
 
-                </nav>
+                    {/* Desktop Navigation */}
+                    {user && (
+                        <nav className="nav-desktop">
+                            <NavLink
+                                to="/home"
+                                className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
+                            >
+                                Home
+                            </NavLink>
+                            <NavLink
+                                to="/dashboard"
+                                className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
+                            >
+                                Dashboard
+                            </NavLink>
+                            <NavLink
+                                to="/registers"
+                                className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
+                            >
+                                Registers
+                            </NavLink>
+                            <NavLink
+                                to="/analytics"
+                                className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
+                            >
+                                Analytics
+                            </NavLink>
+                        </nav>
+                    )}
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {user ? (
+                        <>
+                            <div className="user-badge" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-main)', fontSize: '0.9rem', background: '#f8fafc', padding: '0.5rem 1rem', borderRadius: 'var(--radius)', border: '1px solid #e2e8f0' }}>
+                                <User size={16} className="text-muted" />
+                                <span style={{ fontWeight: 600 }}>
+                                    {user.username.toLowerCase() === 'collector' ? 'District Collector' : user.username}
+                                    <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>({user.role})</span>
+                                </span>
+                            </div>
+                            <button
+                                onClick={onLogout}
+                                className="btn"
+                                style={{ border: '1px solid #fee2e2', color: '#dc2626', background: '#fff' }}
+                                title="Logout"
+                            >
+                                <LogOut size={18} />
+                            </button>
+                        </>
+                    ) : (
+                        <NavLink to="/login" className="btn" style={{ background: 'white', color: 'var(--primary)', fontWeight: 600 }}>Login</NavLink>
+                    )}
+
+                    {/* Mobile Menu Toggle */}
+                    {user && (
+                        <button className="nav-mobile-toggle" onClick={toggleMobileMenu}>
+                            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    )}
+                </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            {/* Mobile Navigation Menu */}
+            <div className={`nav-mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+                <NavLink
+                    to="/home"
+                    className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
+                    onClick={closeMobileMenu}
+                >
+                    Home
+                </NavLink>
+                <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
+                    onClick={closeMobileMenu}
+                >
+                    Dashboard
+                </NavLink>
+                <NavLink
+                    to="/registers"
+                    className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
+                    onClick={closeMobileMenu}
+                >
+                    Registers
+                </NavLink>
+                <NavLink
+                    to="/analytics"
+                    className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
+                    onClick={closeMobileMenu}
+                >
+                    Analytics
+                </NavLink>
                 {user && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-dark)', fontSize: '0.9rem' }}>
-                        <div style={{ background: '#f1f5f9', padding: '0.4rem', borderRadius: '50%' }}>
-                            <User size={18} />
-                        </div>
-                        <span style={{ fontWeight: 500 }}>{user.username} ({user.role})</span>
+                    <div style={{ padding: '0.75rem 1rem', borderTop: '1px solid rgba(255,255,255,0.1)', color: 'white', marginTop: '0.5rem' }}>
+                        <span style={{ fontWeight: 600, display: 'block' }}>
+                            {user.username.toLowerCase() === 'collector' ? 'District Collector' : user.username}
+                        </span>
+                        <span style={{ fontSize: '0.85rem', opacity: 0.8 }}>{user.role}</span>
                     </div>
                 )}
-                <button
-                    onClick={onLogout}
-                    className="btn"
-                    style={{ background: '#fef2f2', color: '#dc2626', padding: '0.5rem', display: 'flex' }}
-                    title="Logout"
-                >
-                    <LogOut size={18} />
-                </button>
             </div>
         </header>
     );

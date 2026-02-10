@@ -124,17 +124,17 @@ export default function Analytics() {
                 <p style={{ color: '#64748b', fontSize: '1rem', marginTop: '0.25rem' }}>Insights and trends for grievance management</p>
             </header>
 
-            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start', flexWrap: 'nowrap' }}>
+            <div className="analytics-wrapper" style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
 
                 {/* Left: Chart Area (Takes remaining space - wider) */}
-                <div className="card" style={{
+                <div className="card analytics-main" style={{
                     flex: '1',
                     height: '450px', // Reduced height as requested
                     padding: '1.5rem',
                     boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                     borderRadius: '16px',
                     border: '1px solid #e2e8f0',
-                    minWidth: '600px' // Ensure it doesn't get too squashed
+                    minWidth: '0' // Fix for flexbox overflow
                 }}>
                     <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#334155', margin: 0 }}>
@@ -150,9 +150,8 @@ export default function Analytics() {
                     </div>
                 </div>
 
-                {/* Right: Controls Sidebar (Fixed width) */}
-                <div style={{
-                    flex: '0 0 300px',
+                {/* Right: Controls Sidebar (Fixed width on desktop, full on mobile) */}
+                <div className="analytics-sidebar" style={{
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '1rem'

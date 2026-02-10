@@ -25,8 +25,8 @@ export default function Login({ setUser }) {
     }
 
     return (
-        <div className="auth-container">
-            <div className="card">
+        <div className="auth-container" style={{ padding: '1rem' }}>
+            <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
                 <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Grievance System Login</h2>
                 {error && <div style={{ color: 'red', marginBottom: '1rem', textAlign: 'center' }}>{error}</div>}
                 <form onSubmit={handleSubmit}>

@@ -4,9 +4,13 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
 import DeletedGrievances from './pages/DeletedGrievances';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
 
 import Layout from './Layout';
 import Registers from './pages/Registers';
+
+import HomePage from './pages/HomePage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -20,7 +24,15 @@ function App() {
       <Routes>
         <Route
           path="/login"
-          element={!user ? <Login setUser={setUser} /> : <Navigate to="/dashboard" />}
+          element={!user ? <Login setUser={setUser} /> : <Navigate to="/home" />}
+        />
+        <Route
+          path="/home"
+          element={
+            <Layout user={user} onLogout={handleLogout} fullWidth={true}>
+              <HomePage />
+            </Layout>
+          }
         />
         <Route
           path="/dashboard"
@@ -62,7 +74,23 @@ function App() {
             ) : <Navigate to="/login" />
           }
         />
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route
+          path="/about-us"
+          element={
+            <Layout user={user} onLogout={handleLogout}>
+              <AboutUs />
+            </Layout>
+          }
+        />
+        <Route
+          path="/contact-us"
+          element={
+            <Layout user={user} onLogout={handleLogout}>
+              <ContactUs />
+            </Layout>
+          }
+        />
+        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </BrowserRouter>
   );

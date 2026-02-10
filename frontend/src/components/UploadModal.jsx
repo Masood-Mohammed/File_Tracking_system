@@ -4,15 +4,26 @@ export default function UploadModal({ isOpen, onClose, onSubmit }) {
     const [file, setFile] = useState(null);
     const [description, setDescription] = useState('');
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     if (!isOpen) return null;
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!file) return alert('Please select a file');
+
+        setIsSubmitting(true);
         const formData = new FormData();
         formData.append('file', file);
         formData.append('description', description);
         formData.append('source', 'Hand'); // Explicitly Hand for uploads
-        onSubmit(formData);
+
+        try {
+            await onSubmit(formData);
+        } catch (error) {
+            alert('Upload failed. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -22,7 +33,7 @@ export default function UploadModal({ isOpen, onClose, onSubmit }) {
 
                 <div className="input-group">
                     <label>Select File</label>
-                    <input type="file" onChange={e => setFile(e.target.files[0])} />
+                    <input type="file" onChange={e => setFile(e.target.files[0])} disabled={isSubmitting} />
                 </div>
 
                 <div className="input-group">
@@ -32,12 +43,20 @@ export default function UploadModal({ isOpen, onClose, onSubmit }) {
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                         placeholder="Leave empty to let Gemini analyze the document..."
+                        disabled={isSubmitting}
                     />
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-                    <button className="btn" style={{ flex: 1, background: '#e2e8f0' }} onClick={onClose}>Cancel</button>
-                    <button className="btn btn-primary" style={{ flex: 1 }} onClick={handleSubmit}>Upload</button>
+                    <button className="btn" style={{ flex: 1, background: '#e2e8f0' }} onClick={onClose} disabled={isSubmitting}>Cancel</button>
+                    <button
+                        className="btn btn-primary"
+                        style={{ flex: 1, opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+                        onClick={handleSubmit}
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Uploading...' : 'Upload'}
+                    </button>
                 </div>
             </div>
         </div>
