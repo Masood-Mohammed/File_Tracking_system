@@ -16,14 +16,14 @@ const DeleteModal = ({ isOpen, onClose, onSubmit }) => {
         <div className="modal-overlay">
             <div className="card" style={{ maxWidth: '400px', width: '90%' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                    <h2 style={{ margin: 0, fontSize: '1.25rem', color: '#dc2626' }}>Delete Grievance</h2>
+                    <h2 style={{ margin: 0, fontSize: '1.25rem', color: '#dc2626' }}>Delete Request</h2>
                     <button onClick={onClose} style={{ background: 'transparent', padding: '0.25rem' }}>
                         <X size={20} />
                     </button>
                 </div>
 
                 <div style={{ marginBottom: '1rem', color: '#64748b', fontSize: '0.875rem' }}>
-                    <p>Are you sure you want to delete this grievance? This action cannot be undone and will be logged.</p>
+                    <p>Are you sure you want to delete this request? This action cannot be undone and will be logged.</p>
                 </div>
 
                 <form onSubmit={handleSubmit}>

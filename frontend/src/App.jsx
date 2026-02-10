@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
-import DeletedGrievances from './pages/DeletedGrievances';
+import DeletedRequests from './pages/DeletedRequests';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 
@@ -65,11 +65,11 @@ function App() {
           }
         />
         <Route
-          path="/deleted-grievances"
+          path="/deleted-requests"
           element={
             user ? (
               <Layout user={user} onLogout={handleLogout}>
-                <DeletedGrievances />
+                <DeletedRequests />
               </Layout>
             ) : <Navigate to="/login" />
           }

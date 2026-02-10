@@ -94,7 +94,7 @@ export default function Analytics() {
                         <YAxis allowDecimals={false} />
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="count" stroke="#8884d8" name="Grievances" />
+                        <Line type="monotone" dataKey="count" stroke="#8884d8" name="Requests" />
                     </LineChart>
                 </ResponsiveContainer>
             );
@@ -107,7 +107,7 @@ export default function Analytics() {
                         <YAxis allowDecimals={false} />
                         <Tooltip />
                         <Legend />
-                        <Bar dataKey="count" fill="#82ca9d" name="Grievances" />
+                        <Bar dataKey="count" fill="#82ca9d" name="Requests" />
                     </BarChart>
                 </ResponsiveContainer>
             );
@@ -121,7 +121,7 @@ export default function Analytics() {
         <div className="dashboard-container" style={{ maxWidth: '100%', margin: '0 auto', padding: '1.5rem' }}>
             <header style={{ marginBottom: '1.5rem' }}>
                 <h2 style={{ fontSize: '1.75rem', fontWeight: 800, margin: 0, color: '#1e293b' }}>Analytics Dashboard</h2>
-                <p style={{ color: '#64748b', fontSize: '1rem', marginTop: '0.25rem' }}>Insights and trends for grievance management</p>
+                <p style={{ color: '#64748b', fontSize: '1rem', marginTop: '0.25rem' }}>Insights and trends for request management</p>
             </header>
 
             <div className="analytics-wrapper" style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>

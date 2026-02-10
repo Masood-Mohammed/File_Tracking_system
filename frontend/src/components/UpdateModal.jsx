@@ -37,7 +37,7 @@ export default function UpdateModal({ isOpen, onClose, onSubmit, file }) {
 
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
-                        <label>Grievance Description</label>
+                        <label>Request Description</label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}

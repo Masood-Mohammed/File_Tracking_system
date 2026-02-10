@@ -91,7 +91,7 @@ export default function FileCard({ file, userRole, currentUserId, onForward, onC
                 (userRole === 'collector' || userRole === 'secretary') && (
                     <div style={{ marginTop: '0.5rem', textAlign: 'center' }}>
                         <button className="btn" style={{ background: '#fef2f2', color: '#dc2626', width: '100%', fontSize: '0.85rem' }} onClick={() => onDelete(file)}>
-                            Delete Grievance
+                            Delete Request
                         </button>
                     </div>
                 )

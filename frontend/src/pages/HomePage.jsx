@@ -48,7 +48,7 @@ const HomePage = () => {
                         margin: '0 auto',
                         color: 'rgba(255, 255, 255, 0.9)'
                     }}>
-                        Streamlining administrative workflows and ensuring transparency, accountability, and timely grievance redressal.
+                        Streamlining administrative workflows and ensuring transparency, accountability, and timely request redressal.
                     </p>
                 </div>
             </div>
@@ -88,7 +88,7 @@ const HomePage = () => {
                         onClick={() => navigate('/dashboard')}
                     >
                         <h3 style={{ color: '#2563eb' }}>Dashboard</h3>
-                        <p style={{ color: 'var(--text-muted)' }}>Access your centralized file dashboard to track movements, manage pending actions, and oversee grievance resolutions.</p>
+                        <p style={{ color: 'var(--text-muted)' }}>Access your centralized file dashboard to track movements, manage pending actions, and oversee request resolutions.</p>
                         <button className="btn btn-primary" style={{ marginTop: '1.5rem', width: '100%' }}>Go to Dashboard</button>
                     </div>
 
