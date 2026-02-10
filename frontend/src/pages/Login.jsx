@@ -21,7 +21,7 @@ export default function Login({ setUser }) {
 
     const handleSetup = async () => {
         await setupUsers();
-        alert('Demo users created! Try logging in as collector/password');
+        alert('Demo users created! Try logging in as DistrictCollector/password');
     }
 
     return (

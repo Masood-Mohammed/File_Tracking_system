@@ -72,7 +72,7 @@ const Header = ({ user, onLogout }) => {
                             <div className="user-badge" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-main)', fontSize: '0.9rem', background: '#f8fafc', padding: '0.5rem 1rem', borderRadius: 'var(--radius)', border: '1px solid #e2e8f0' }}>
                                 <User size={16} className="text-muted" />
                                 <span style={{ fontWeight: 600 }}>
-                                    {user.username.toLowerCase() === 'collector' ? 'District Collector' : user.username}
+                                    {user.username.toLowerCase() === 'districtcollector' ? 'District Collector' : (user.username.toLowerCase() === 'collector' ? 'District Collector' : user.username)}
                                     <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>({user.role})</span>
                                 </span>
                             </div>
@@ -89,9 +89,7 @@ const Header = ({ user, onLogout }) => {
                         <NavLink to="/login" className="btn" style={{ background: 'white', color: 'var(--primary)', fontWeight: 600 }}>Login</NavLink>
                     )}
 
-                    {user && (
-                        <img src={apLogo} alt="AP Govt Logo" style={{ height: '50px', objectFit: 'contain' }} />
-                    )}
+                    <img src={apLogo} alt="AP Govt Logo" style={{ height: '50px', objectFit: 'contain' }} />
 
                     {/* Mobile Menu Toggle */}
                     {user && (

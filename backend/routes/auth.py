@@ -40,7 +40,7 @@ def login():
 def setup_users():
     # Only for initial setup demo
     users = [
-        {"username": "collector", "password": "password", "role": "collector"},
+        {"username": "DistrictCollector", "password": "password", "role": "collector"},
         {"username": "secretary", "password": "password", "role": "secretary"},
         {"username": "cc", "password": "password", "role": "cc"}
     ]
