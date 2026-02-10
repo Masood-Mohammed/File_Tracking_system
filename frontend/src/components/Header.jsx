@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { LogOut, User, Menu, X } from 'lucide-react';
 
 import logo from '../assets/logo.png';
+import apLogo from '../assets/ap.png';
 
 const Header = ({ user, onLogout }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -86,6 +87,10 @@ const Header = ({ user, onLogout }) => {
                         </>
                     ) : (
                         <NavLink to="/login" className="btn" style={{ background: 'white', color: 'var(--primary)', fontWeight: 600 }}>Login</NavLink>
+                    )}
+
+                    {user && (
+                        <img src={apLogo} alt="AP Govt Logo" style={{ height: '50px', objectFit: 'contain' }} />
                     )}
 
                     {/* Mobile Menu Toggle */}
