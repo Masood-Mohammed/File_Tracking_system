@@ -43,11 +43,11 @@ export const completeFile = async (fileId, userId, outcome, remarks) => {
     return res.json();
 };
 
-export const updateFile = async (fileId, description) => {
+export const updateFile = async (fileId, description, category) => {
     const res = await fetch(`${API_URL}/files/${fileId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ grievance_summary: description })
+        body: JSON.stringify({ grievance_summary: description, category })
     });
     return res.json();
 };

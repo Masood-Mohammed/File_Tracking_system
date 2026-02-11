@@ -30,6 +30,8 @@ class File(db.Model):
     file_path = db.Column(db.String(255), nullable=True) # Path to uploaded file
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
+    is_edited = db.Column(db.Boolean, default=False)
+    
     current_officer = db.relationship('User', backref='current_files')
 
     def to_dict(self):
@@ -45,7 +47,8 @@ class File(db.Model):
             "closing_remarks": self.closing_remarks,
             "current_officer": self.current_officer.username if self.current_officer else None,
             "file_path": self.file_path,
-            "created_at": self.created_at.isoformat()
+            "created_at": self.created_at.isoformat(),
+            "is_edited": self.is_edited
         }
 
 class FileMovement(db.Model):

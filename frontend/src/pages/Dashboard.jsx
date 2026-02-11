@@ -54,9 +54,9 @@ export default function Dashboard({ user, onLogout }) {
         setIsUpdateModalOpen(true);
     };
 
-    const submitUpdate = async (description) => {
+    const submitUpdate = async (description, category) => {
         try {
-            await updateFile(selectedFile.id, description);
+            await updateFile(selectedFile.id, description, category);
             setIsUpdateModalOpen(false);
             fetchData();
         } catch (error) {
@@ -160,7 +160,7 @@ export default function Dashboard({ user, onLogout }) {
                         No files found.
                     </div>
                 ) : (
-                    files.map(file => (
+                    files.map((file, index) => (
                         <FileCard
                             key={file.id}
                             file={file}
@@ -171,6 +171,7 @@ export default function Dashboard({ user, onLogout }) {
                             onComplete={handleComplete}
                             onViewHistory={handleHistory}
                             onDelete={handleDelete}
+                            isExpanded={index === 0}
                         />
                     ))
                 )}

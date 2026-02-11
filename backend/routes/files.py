@@ -308,6 +308,7 @@ def delete_file(file_id):
 def update_file(file_id):
     data = request.json
     grievance_summary = data.get('grievance_summary')
+    category = data.get('category')
     
     file = File.query.get_or_404(file_id)
     
@@ -316,6 +317,11 @@ def update_file(file_id):
     
     if grievance_summary:
         file.grievance_summary = grievance_summary
+    
+    if category:
+        file.category = category
+        
+    file.is_edited = True
     
     db.session.commit()
     return jsonify(file.to_dict())

@@ -3,11 +3,13 @@ import { X, Save } from 'lucide-react';
 
 export default function UpdateModal({ isOpen, onClose, onSubmit, file }) {
     const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         if (file) {
             setDescription(file.grievance_summary || '');
+            setCategory(file.category || '');
         }
     }, [file, isOpen]);
 
@@ -17,7 +19,7 @@ export default function UpdateModal({ isOpen, onClose, onSubmit, file }) {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            await onSubmit(description);
+            await onSubmit(description, category);
         } catch (error) {
             console.error("Update failed", error);
         } finally {
@@ -44,6 +46,22 @@ export default function UpdateModal({ isOpen, onClose, onSubmit, file }) {
                             rows={6}
                             required
                             disabled={isSubmitting}
+                        />
+                    </div>
+
+                    <div className="input-group" style={{ marginTop: '1rem' }}>
+                        <label>Title (Category)</label>
+                        <input
+                            type="text"
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            disabled={isSubmitting}
+                            style={{
+                                width: '100%',
+                                padding: '0.5rem',
+                                border: '1px solid #cbd5e1',
+                                borderRadius: '4px'
+                            }}
                         />
                     </div>
 
