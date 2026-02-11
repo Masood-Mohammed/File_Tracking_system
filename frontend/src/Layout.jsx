@@ -13,7 +13,7 @@ const Layout = ({ children, user, onLogout, fullWidth = false }) => {
 
     return (
         <div style={{ display: 'flex', minHeight: '100vh' }}>
-            {user && <Sidebar user={user} isOpen={isSidebarOpen} />}
+            {user && <Sidebar user={user} isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '100%' }}>
                 <Header user={user} onLogout={onLogout} onToggleSidebar={toggleSidebar} />
                 <main style={fullWidth ?

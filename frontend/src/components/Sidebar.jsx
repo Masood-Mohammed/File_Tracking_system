@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Home, LayoutDashboard, FileText, BarChart2, Trash2 } from 'lucide-react'; // Added Trash2 for DeletedRequests if needed, or just the main ones
 
-const Sidebar = ({ user, isOpen }) => {
+const Sidebar = ({ user, isOpen, onClose }) => {
     // Only show sidebar if user is logged in? The request implies it ("home, Dashboard..."). 
     // If not logged in, usually we just show Login page which uses Layout?
     // The Layout handles `user` prop.
@@ -40,6 +40,7 @@ const Sidebar = ({ user, isOpen }) => {
                         key={item.name}
                         to={item.path}
                         className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+                        onClick={onClose}
                         style={({ isActive }) => ({
                             display: 'flex',
                             alignItems: 'center',
