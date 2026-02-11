@@ -5,7 +5,7 @@ import { LogOut, User, Menu, X } from 'lucide-react';
 import logo from '../assets/logo.png';
 import apLogo from '../assets/ap.png';
 
-const Header = ({ user, onLogout }) => {
+const Header = ({ user, onLogout, onToggleSidebar }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
@@ -27,43 +27,24 @@ const Header = ({ user, onLogout }) => {
             boxShadow: 'var(--shadow-sm)'
         }}>
             <div className="container header-wrapper">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '2.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {user && (
+                        <button onClick={onToggleSidebar} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer', padding: '0.5rem', display: 'flex', alignItems: 'center' }}>
+                            <Menu size={28} />
+                        </button>
+                    )}
                     <Link to="/home" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
                         <img src={logo} alt="JNTUGV Logo" style={{ height: '50px', objectFit: 'contain' }} />
                         <h1 style={{ fontSize: '1.25rem', fontWeight: '800', color: 'white', margin: 0, letterSpacing: '-0.025em' }}>
                             FileTrack<span style={{ color: 'white' }}>.gov</span>
                         </h1>
                     </Link>
+                </div>
 
-                    {/* Desktop Navigation */}
-                    {user && (
-                        <nav className="nav-desktop">
-                            <NavLink
-                                to="/home"
-                                className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
-                            >
-                                Home
-                            </NavLink>
-                            <NavLink
-                                to="/dashboard"
-                                className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
-                            >
-                                Dashboard
-                            </NavLink>
-                            <NavLink
-                                to="/registers"
-                                className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
-                            >
-                                Registers
-                            </NavLink>
-                            <NavLink
-                                to="/analytics"
-                                className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}
-                            >
-                                Analytics
-                            </NavLink>
-                        </nav>
-                    )}
+                <div style={{ position: 'absolute', left: '47%', transform: 'translateX(-50%)', textAlign: 'center' }}>
+                    <h2 style={{ fontSize: '1.2rem', fontWeight: '700', color: 'black', margin: 0, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                        Government of Andhra Pradesh
+                    </h2>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
